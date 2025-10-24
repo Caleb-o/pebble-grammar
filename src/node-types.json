@@ -1873,6 +1873,14 @@
     "named": false
   },
   {
+    "type": "f32",
+    "named": false
+  },
+  {
+    "type": "f64",
+    "named": false
+  },
+  {
     "type": "false",
     "named": false
   },
