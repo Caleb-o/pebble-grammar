@@ -19,7 +19,7 @@ module.exports = grammar({
     // Comments
     comment: $ => token(seq('//', /.*/)),
 
-    // Function declaration - UPDATED to support shorthand types
+    // Function declaration
     function_declaration: $ => seq(
       'fn',
       field('name', $.identifier),
@@ -34,7 +34,7 @@ module.exports = grammar({
       ')',
     ),
 
-    // Parameter - UPDATED: type comes after name without colon
+    // Parameter
     parameter: $ => seq(
       field('name', $.identifier),
       field('type', $._type),
@@ -76,7 +76,7 @@ module.exports = grammar({
     ),
 
     primitive_type: $ => choice(
-      'void', 'bool', 'int', 'float', 'double', 'str', 'char',
+      'void', 'bool', 'int', 'str', 'char',
       'f32', 'f64',
       'i8', 'i16', 'i32', 'i64', 'isize',
       'u8', 'u16', 'u32', 'u64', 'usize',
@@ -102,6 +102,7 @@ module.exports = grammar({
       $.while_statement,
       $.for_statement,
       $.loop_statement,
+      $.switch_statement,
       $.print_statement,
       $.expression_statement,
       $.block,
@@ -115,12 +116,12 @@ module.exports = grammar({
       ';',
     ),
 
-    if_statement: $ => seq(
+    if_statement: $ => prec.right(seq(
       'if',
       field('condition', $._expression),
       field('consequence', $.block),
       optional(seq('else', field('alternative', choice($.block, $.if_statement)))),
-    ),
+    )),
 
     while_statement: $ => seq(
       'while',
@@ -136,6 +137,49 @@ module.exports = grammar({
       field('update', $._expression),
       field('body', $.block),
     ),
+
+    // Switch statement
+    switch_statement: $ => seq(
+      'switch',
+      field('condition', $._expression),
+      '{',
+      repeat($.case_clause),
+      optional($.else_clause),
+      '}',
+    ),
+
+    case_clause: $ => seq(
+      'case',
+      field('value', $._expression),
+      ':',
+      field('body', choice(
+        $.block,
+        $.case_body,
+      )),
+    ),
+
+    else_clause: $ => seq(
+      'else',
+      ':',
+      field('body', choice(
+        $.block,
+        $.case_body,
+      )),
+    ),
+
+    case_body: $ => repeat1(choice(
+      $.variable_declaration,
+      $.return_statement,
+      $.if_statement,
+      $.while_statement,
+      $.for_statement,
+      $.loop_statement,
+      $.switch_statement,
+      $.print_statement,
+      $.expression_statement,
+      $.break_statement,
+      $.continue_statement,
+    )),
 
     // Loop statement
     loop_statement: $ => seq(
