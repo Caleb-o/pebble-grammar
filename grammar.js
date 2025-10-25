@@ -108,6 +108,7 @@ module.exports = grammar({
       $.block,
       $.break_statement,
       $.continue_statement,
+      $.defer_statement,
     ),
 
     return_statement: $ => seq(
@@ -179,6 +180,7 @@ module.exports = grammar({
       $.expression_statement,
       $.break_statement,
       $.continue_statement,
+      $.defer_statement,
     )),
 
     // Loop statement
@@ -205,6 +207,11 @@ module.exports = grammar({
     continue_statement: $ => seq('continue', ';'),
 
     expression_statement: $ => seq($._expression, ';'),
+
+    defer_statement: $ => seq(
+      'defer',
+      field('statement', $._statement),
+    ),
 
     // Expressions
     _expression: $ => choice(
