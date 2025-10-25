@@ -518,6 +518,10 @@
         {
           "type": "SYMBOL",
           "name": "continue_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "defer_statement"
         }
       ]
     },
@@ -857,6 +861,10 @@
           {
             "type": "SYMBOL",
             "name": "continue_statement"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "defer_statement"
           }
         ]
       }
@@ -977,6 +985,23 @@
         {
           "type": "STRING",
           "value": ";"
+        }
+      ]
+    },
+    "defer_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "defer"
+        },
+        {
+          "type": "FIELD",
+          "name": "statement",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_statement"
+          }
         }
       ]
     },
