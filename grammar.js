@@ -230,18 +230,22 @@ module.exports = grammar({
     binary_expression: $ => choice(
       prec.left(1, seq($._expression, '||', $._expression)),
       prec.left(2, seq($._expression, '&&', $._expression)),
-      prec.left(3, seq($._expression, choice('==', '!='), $._expression)),
-      prec.left(4, seq($._expression, choice('<', '<=', '>', '>='), $._expression)),
-      prec.left(5, seq($._expression, choice('+', '-'), $._expression)),
-      prec.left(6, seq($._expression, choice('*', '/'), $._expression)),
+      prec.left(3, seq($._expression, '|', $._expression)),
+      prec.left(4, seq($._expression, '^', $._expression)),
+      prec.left(5, seq($._expression, '&', $._expression)),
+      prec.left(6, seq($._expression, choice('==', '!='), $._expression)),
+      prec.left(7, seq($._expression, choice('<', '<=', '>', '>='), $._expression)),
+      prec.left(8, seq($._expression, choice('<<', '>>'), $._expression)),
+      prec.left(9, seq($._expression, choice('+', '-'), $._expression)),
+      prec.left(10, seq($._expression, choice('*', '/'), $._expression)),
     ),
 
-    unary_expression: $ => prec.right(7, seq(
-      choice('-', '!', '&', '*', 'sizeof'),
+    unary_expression: $ => prec.right(11, seq(
+      choice('-', '!', '~', '&', '*', 'sizeof'),
       $._expression,
     )),
 
-    call_expression: $ => prec(8, seq(
+    call_expression: $ => prec(12, seq(
       field('function', $._expression),
       field('arguments', $.argument_list),
     )),
@@ -252,14 +256,14 @@ module.exports = grammar({
       ')',
     ),
 
-    field_expression: $ => prec(9, seq(
+    field_expression: $ => prec(13, seq(
       field('object', $._expression),
       '.',
       field('field', $.identifier),
     )),
 
     // Index expression - for single index: array[i]
-    index_expression: $ => prec(9, seq(
+    index_expression: $ => prec(13, seq(
       field('array', $._expression),
       '[',
       field('index', $._expression),
@@ -267,7 +271,7 @@ module.exports = grammar({
     )),
 
     // Slice expression
-    slice_expression: $ => prec(9, seq(
+    slice_expression: $ => prec(13, seq(
       field('array', $._expression),
       '[',
       optional(field('start', $._expression)),
