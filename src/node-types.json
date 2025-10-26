@@ -2164,6 +2164,10 @@
     "named": false
   },
   {
+    "type": "enum",
+    "named": false
+  },
+  {
     "type": "escape_sequence",
     "named": true
   },
