@@ -19,6 +19,8 @@ module.exports = grammar({
     // Comments
     comment: ($) => token(seq("//", /.*/)),
 
+    type: ($) => $._type,
+
     // Import statement
     import_statement: ($) =>
       seq("import", field("module", $.string_literal), ";"),
@@ -53,7 +55,7 @@ module.exports = grammar({
       seq(
         choice("let", "var"),
         field("name", $.identifier),
-        optional(field("type", $._type)),
+        optional(field("type", $.type)),
         optional(seq("=", field("value", $._expression))),
         ";",
       ),
