@@ -309,7 +309,10 @@ module.exports = grammar({
     unary_expression: ($) =>
       prec.right(
         11,
-        seq(choice("-", "!", "~", "&", "*", "sizeof"), $._expression),
+        choice(
+          seq(choice("-", "!", "~", "&", "*"), $._expression),
+          seq("sizeof", choice($._expression, $._type))
+        ),
       ),
 
     call_expression: ($) =>
