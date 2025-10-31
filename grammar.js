@@ -12,6 +12,7 @@ module.exports = grammar({
         $.type_declaration,
         $.variable_declaration,
         $.extern_declaration,
+        $.extern_block,
         $.import_statement,
       ),
 
@@ -26,6 +27,7 @@ module.exports = grammar({
     function_declaration: ($) =>
       seq(
         "fn",
+        optional(field("calling_convention", $.string_literal)),
         field("name", $.identifier),
         field("parameters", $.parameter_list),
         optional(field("return_type", $._type)), // No -> needed
@@ -51,10 +53,22 @@ module.exports = grammar({
         ";",
       ),
 
-    // Extern declaration
-    extern_declaration: ($) =>
+    // Extern block
+    extern_block: ($) =>
       seq(
         "extern",
+        optional(field("library", $.string_literal)),
+        "{",
+        repeat($._extern_item),
+        "}",
+      ),
+
+    // Individual extern declarations (for both block and standalone)
+    _extern_item: ($) =>
+      choice($.extern_function_declaration, $.extern_type_declaration),
+
+    extern_function_declaration: ($) =>
+      seq(
         "fn",
         field("name", $.identifier),
         field("parameters", $.parameter_list),
@@ -62,9 +76,28 @@ module.exports = grammar({
         ";",
       ),
 
+    extern_type_declaration: ($) =>
+      seq("type", field("name", $.identifier), ";"),
+
+    // Standalone extern declaration
+    extern_declaration: ($) =>
+      seq(
+        "extern",
+        optional(field("library", $.string_literal)),
+        choice($.extern_function_declaration, $.extern_type_declaration),
+      ),
+
     // Types
     _type: ($) =>
-      choice($.primitive_type, $.qualified_path, $.pointer_type, $.array_type),
+      choice(
+        $.primitive_type,
+        $.qualified_path,
+        $.pointer_type,
+        $.array_type,
+        $.slice_type,
+        $.optional_type,
+        $.function_type,
+      ),
 
     primitive_type: ($) =>
       choice(
@@ -91,7 +124,24 @@ module.exports = grammar({
 
     pointer_type: ($) => prec.right(seq("*", $._type)),
 
-    array_type: ($) => seq("[", $._type, "]"),
+    array_type: ($) =>
+      seq("[", field("size", $._expression), "]", field("element_type", $._type)),
+
+    slice_type: ($) => seq("[", "]", field("element_type", $._type)),
+
+    optional_type: ($) => prec.right(seq("?", $._type)),
+
+    function_type: ($) =>
+      prec.right(
+        seq(
+          "fn",
+          optional(field("calling_convention", $.string_literal)),
+          "(",
+          optional(sep1($._type, ",")),
+          ")",
+          optional($._type),
+        ),
+      ),
 
     // Qualified path (for expressions and types)
     qualified_path: ($) =>
@@ -228,6 +278,9 @@ module.exports = grammar({
         $.slice_expression,
         $.parenthesized_expression,
         $.cast_expression,
+        $.some_expression,
+        $.none_expression,
+        $.context_expression,
       ),
 
     binary_expression: ($) =>
@@ -330,6 +383,12 @@ module.exports = grammar({
     boolean_literal: ($) => choice("true", "false"),
 
     nil_literal: ($) => "nil",
+
+    some_expression: ($) => seq("some", field("value", $._expression)),
+
+    none_expression: ($) => "none",
+
+    context_expression: ($) => "context",
 
     identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
   },
