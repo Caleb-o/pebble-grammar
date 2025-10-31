@@ -281,6 +281,7 @@ module.exports = grammar({
         $.some_expression,
         $.none_expression,
         $.context_expression,
+        $.function_expression,
       ),
 
     binary_expression: ($) =>
@@ -389,6 +390,15 @@ module.exports = grammar({
     none_expression: ($) => "none",
 
     context_expression: ($) => "context",
+
+    function_expression: ($) =>
+      seq(
+        "fn",
+        optional(field("calling_convention", $.string_literal)),
+        field("parameters", $.parameter_list),
+        optional(field("return_type", $._type)),
+        field("body", $.block),
+      ),
 
     identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
   },
