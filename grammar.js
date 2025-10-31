@@ -53,7 +53,7 @@ module.exports = grammar({
       seq(
         choice("let", "var"),
         field("name", $.identifier),
-        optional(seq(":", field("type", $._type))),
+        optional(field("type", $._type)),
         optional(seq("=", field("value", $._expression))),
         ";",
       ),
