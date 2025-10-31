@@ -37,7 +37,12 @@ module.exports = grammar({
     parameter_list: ($) => seq("(", optional(sep1($.parameter, ",")), ")"),
 
     // Parameter
-    parameter: ($) => seq(field("name", $.identifier), field("type", $._type)),
+    parameter: ($) =>
+      seq(
+        optional("..."),
+        field("name", $.identifier),
+        field("type", $._type),
+      ),
 
     // Type declaration
     type_declaration: ($) =>
