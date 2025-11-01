@@ -40,11 +40,7 @@ module.exports = grammar({
 
     // Parameter
     parameter: ($) =>
-      seq(
-        optional("..."),
-        field("name", $.identifier),
-        field("type", $._type),
-      ),
+      seq(optional("..."), field("name", $.identifier), field("type", $._type)),
 
     // Type declaration
     type_declaration: ($) =>
@@ -72,7 +68,11 @@ module.exports = grammar({
 
     // Individual extern declarations (for both block and standalone)
     _extern_item: ($) =>
-      choice($.extern_function_declaration, $.extern_type_declaration),
+      choice(
+        $.extern_function_declaration,
+        $.extern_type_declaration,
+        $.extern_variable_declaration,
+      ),
 
     extern_function_declaration: ($) =>
       seq(
@@ -86,12 +86,25 @@ module.exports = grammar({
     extern_type_declaration: ($) =>
       seq("type", field("name", $.identifier), ";"),
 
+    extern_variable_declaration: ($) =>
+      seq(
+        choice("let", "var"),
+        field("name", $.identifier),
+        optional(field("type", $.type)),
+        optional(seq("=", field("value", $._expression))),
+        ";",
+      ),
+
     // Standalone extern declaration
     extern_declaration: ($) =>
       seq(
         "extern",
         optional(field("library", $.string_literal)),
-        choice($.extern_function_declaration, $.extern_type_declaration),
+        choice(
+          $.extern_function_declaration,
+          $.extern_type_declaration,
+          $.extern_variable_declaration,
+        ),
       ),
 
     // Types
@@ -132,7 +145,12 @@ module.exports = grammar({
     pointer_type: ($) => prec.right(seq("*", $._type)),
 
     array_type: ($) =>
-      seq("[", field("size", $._expression), "]", field("element_type", $._type)),
+      seq(
+        "[",
+        field("size", $._expression),
+        "]",
+        field("element_type", $._type),
+      ),
 
     slice_type: ($) => seq("[", "]", field("element_type", $._type)),
 
@@ -313,7 +331,7 @@ module.exports = grammar({
         11,
         choice(
           seq(choice("-", "!", "~", "&", "*"), $._expression),
-          seq("sizeof", choice($._expression, $._type))
+          seq("sizeof", choice($._expression, $._type)),
         ),
       ),
 
