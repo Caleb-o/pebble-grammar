@@ -140,6 +140,7 @@ module.exports = grammar({
         "usize",
         "struct",
         "enum",
+        "union",
       ),
 
     pointer_type: ($) => prec.right(seq("*", $._type)),
