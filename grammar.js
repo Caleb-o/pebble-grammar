@@ -337,7 +337,7 @@ module.exports = grammar({
         11,
         choice(
           seq(choice("-", "!", "~", "&", "*"), $._expression),
-          seq("sizeof", choice($._expression, $._type)),
+          seq("sizeof", $._type),
         ),
       ),
 
