@@ -3421,6 +3421,10 @@
     "named": false
   },
   {
+    "type": "union",
+    "named": false
+  },
+  {
     "type": "usize",
     "named": false
   },
