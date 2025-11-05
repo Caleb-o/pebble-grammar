@@ -3345,6 +3345,10 @@
     "named": false
   },
   {
+    "type": "inline",
+    "named": false
+  },
+  {
     "type": "int",
     "named": false
   },

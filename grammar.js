@@ -29,6 +29,7 @@ module.exports = grammar({
     function_declaration: ($) =>
       seq(
         "fn",
+        optional("inline"),
         optional(field("calling_convention", $.string_literal)),
         field("name", $.identifier),
         field("parameters", $.parameter_list),
@@ -429,6 +430,7 @@ module.exports = grammar({
     function_expression: ($) =>
       seq(
         "fn",
+        optional("inline"),
         optional(field("calling_convention", $.string_literal)),
         field("parameters", $.parameter_list),
         optional(field("return_type", $._type)),
