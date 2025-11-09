@@ -243,6 +243,7 @@ module.exports = grammar({
       seq(
         "case",
         field("value", $._expression),
+        optional(repeat(seq(",", $._expression))),
         ":",
         field("body", choice($.block, $.case_body)),
       ),
