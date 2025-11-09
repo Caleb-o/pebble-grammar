@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-pebble",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Pebble grammar for tree-sitter",
   "main": "bindings/node",
   "tree-sitter": [

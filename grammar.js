@@ -396,6 +396,7 @@ module.exports = grammar({
         $.integer_literal,
         $.float_literal,
         $.string_literal,
+        $.template_literal,
         $.char_literal,
         $.boolean_literal,
         $.nil_literal,
@@ -409,6 +410,18 @@ module.exports = grammar({
 
     string_literal: ($) =>
       seq('"', repeat(choice($.escape_sequence, /[^"\\]/)), '"'),
+
+    template_literal: ($) =>
+      seq(
+        "`",
+        repeat(choice($.template_string_fragment, $.template_interpolation)),
+        "`",
+      ),
+
+    template_string_fragment: ($) => /[^`{]+/,
+
+    template_interpolation: ($) =>
+      seq("{", field("expression", $._expression), "}"),
 
     char_literal: ($) => seq("'", choice($.escape_sequence, /[^'\\]/), "'"),
 
