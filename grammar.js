@@ -401,6 +401,7 @@ module.exports = grammar({
         $.char_literal,
         $.boolean_literal,
         $.nil_literal,
+        $.array_literal,
       ),
 
     integer_literal: ($) => choice(/[0-9]+/, $.hex_literal),
@@ -434,6 +435,13 @@ module.exports = grammar({
     boolean_literal: ($) => choice("true", "false"),
 
     nil_literal: ($) => "nil",
+
+    array_literal: ($) =>
+      seq(
+        "[",
+        optional(seq($._expression, repeat(seq(",", $._expression)))),
+        "]",
+      ),
 
     some_expression: ($) => seq("some", field("value", $._expression)),
 
