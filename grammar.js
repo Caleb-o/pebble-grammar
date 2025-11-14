@@ -32,6 +32,7 @@ module.exports = grammar({
         optional("inline"),
         optional(field("calling_convention", $.string_literal)),
         field("name", $.identifier),
+        optional(field("type_params", $.type_parameter_list)),
         field("parameters", $.parameter_list),
         optional(field("return_type", $._type)), // No -> needed
         field("body", $.block),
@@ -45,7 +46,13 @@ module.exports = grammar({
 
     // Type declaration
     type_declaration: ($) =>
-      seq("type", field("name", $.identifier), "=", $._type),
+      seq(
+        "type",
+        field("name", $.identifier),
+        optional(field("type_params", $.type_parameter_list)),
+        "=",
+        $._type,
+      ),
 
     // Variable declaration
     variable_declaration: ($) =>
@@ -56,6 +63,10 @@ module.exports = grammar({
         optional(seq("=", field("value", $._expression))),
         ";",
       ),
+
+    type_parameter_list: ($) => seq("[", sep1($.type_parameter, ","), "]"),
+
+    type_parameter: ($) => $.identifier,
 
     // Extern block
     extern_block: ($) =>
@@ -113,6 +124,7 @@ module.exports = grammar({
       choice(
         $.primitive_type,
         $.qualified_path,
+        $.generic_type,
         $.pointer_type,
         $.array_type,
         $.slice_type,
@@ -168,6 +180,12 @@ module.exports = grammar({
           ")",
           optional($._type),
         ),
+      ),
+
+    generic_type: ($) =>
+      prec(
+        14,
+        seq(field("base", $.qualified_path), "[", sep1($._type, ","), "]"),
       ),
 
     // Qualified path (for expressions and types)
@@ -304,6 +322,7 @@ module.exports = grammar({
       choice(
         $.qualified_path,
         $.literal,
+        $.generic_instantiation,
         $.binary_expression,
         $.unary_expression,
         $.call_expression,
@@ -457,6 +476,12 @@ module.exports = grammar({
         field("parameters", $.parameter_list),
         optional(field("return_type", $._type)),
         field("body", $.block),
+      ),
+
+    generic_instantiation: ($) =>
+      prec(
+        14,
+        seq(field("base", $.qualified_path), ".", "[", sep1($._type, ","), "]"),
       ),
 
     identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
