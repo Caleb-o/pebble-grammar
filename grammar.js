@@ -248,13 +248,16 @@ module.exports = grammar({
 
     // Switch statement
     switch_statement: ($) =>
-      seq(
-        "switch",
-        field("condition", $._expression),
-        "{",
-        repeat($.case_clause),
-        optional($.else_clause),
-        "}",
+      prec.right(
+        1,
+        seq(
+          "switch",
+          field("condition", $._expression),
+          "{",
+          repeat($.case_clause),
+          optional($.else_clause),
+          "}",
+        ),
       ),
 
     case_clause: ($) =>
