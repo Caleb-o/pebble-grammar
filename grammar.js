@@ -323,6 +323,7 @@ module.exports = grammar({
         $.qualified_path,
         $.literal,
         $.generic_instantiation,
+        $.struct_literal,
         $.binary_expression,
         $.unary_expression,
         $.call_expression,
@@ -454,6 +455,30 @@ module.exports = grammar({
     boolean_literal: ($) => choice("true", "false"),
 
     nil_literal: ($) => "nil",
+
+    struct_literal: ($) =>
+      seq(
+        optional(
+          field("type", choice($.qualified_path, $.generic_instantiation)),
+        ),
+        ".",
+        "{",
+        optional(sep1($.field_initializer, ",")),
+        optional(","),
+        "}",
+      ),
+
+    struct_literal: ($) =>
+      seq(
+        optional(
+          field("type", choice($.qualified_path, $.generic_instantiation)),
+        ),
+        ".",
+        "{",
+        optional(sep1($.field_initializer, ",")),
+        optional(","),
+        "}",
+      ),
 
     array_literal: ($) =>
       seq(
