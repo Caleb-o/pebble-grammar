@@ -64,6 +64,10 @@
           "named": true
         },
         {
+          "type": "struct_literal",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         }
@@ -132,6 +136,10 @@
         },
         {
           "type": "some_expression",
+          "named": true
+        },
+        {
+          "type": "struct_literal",
           "named": true
         },
         {
@@ -244,6 +252,10 @@
             "named": true
           },
           {
+            "type": "struct_literal",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           }
@@ -313,6 +325,10 @@
         },
         {
           "type": "some_expression",
+          "named": true
+        },
+        {
+          "type": "struct_literal",
           "named": true
         },
         {
@@ -470,6 +486,10 @@
             "named": true
           },
           {
+            "type": "struct_literal",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           }
@@ -615,6 +635,10 @@
             "named": true
           },
           {
+            "type": "struct_literal",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           }
@@ -679,6 +703,10 @@
         },
         {
           "type": "some_expression",
+          "named": true
+        },
+        {
+          "type": "struct_literal",
           "named": true
         },
         {
@@ -778,6 +806,10 @@
         },
         {
           "type": "some_expression",
+          "named": true
+        },
+        {
+          "type": "struct_literal",
           "named": true
         },
         {
@@ -953,6 +985,10 @@
         },
         {
           "type": "some_expression",
+          "named": true
+        },
+        {
+          "type": "struct_literal",
           "named": true
         },
         {
@@ -1195,6 +1231,10 @@
             "named": true
           },
           {
+            "type": "struct_literal",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           }
@@ -1274,6 +1314,96 @@
           },
           {
             "type": "some_expression",
+            "named": true
+          },
+          {
+            "type": "struct_literal",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "field_initializer",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "call_expression",
+            "named": true
+          },
+          {
+            "type": "cast_expression",
+            "named": true
+          },
+          {
+            "type": "context_expression",
+            "named": true
+          },
+          {
+            "type": "field_expression",
+            "named": true
+          },
+          {
+            "type": "function_expression",
+            "named": true
+          },
+          {
+            "type": "generic_instantiation",
+            "named": true
+          },
+          {
+            "type": "index_expression",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "none_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "qualified_path",
+            "named": true
+          },
+          {
+            "type": "slice_expression",
+            "named": true
+          },
+          {
+            "type": "some_expression",
+            "named": true
+          },
+          {
+            "type": "struct_literal",
             "named": true
           },
           {
@@ -1359,6 +1489,10 @@
             "named": true
           },
           {
+            "type": "struct_literal",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           }
@@ -1429,6 +1563,10 @@
             "named": true
           },
           {
+            "type": "struct_literal",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           },
@@ -1496,6 +1634,10 @@
           },
           {
             "type": "some_expression",
+            "named": true
+          },
+          {
+            "type": "struct_literal",
             "named": true
           },
           {
@@ -1915,6 +2057,10 @@
             "named": true
           },
           {
+            "type": "struct_literal",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           }
@@ -2013,6 +2159,10 @@
             "named": true
           },
           {
+            "type": "struct_literal",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           }
@@ -2076,6 +2226,10 @@
           },
           {
             "type": "some_expression",
+            "named": true
+          },
+          {
+            "type": "struct_literal",
             "named": true
           },
           {
@@ -2347,6 +2501,10 @@
           "named": true
         },
         {
+          "type": "struct_literal",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         }
@@ -2466,6 +2624,10 @@
           "named": true
         },
         {
+          "type": "struct_literal",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         }
@@ -2563,6 +2725,10 @@
             "named": true
           },
           {
+            "type": "struct_literal",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           }
@@ -2626,6 +2792,10 @@
           },
           {
             "type": "some_expression",
+            "named": true
+          },
+          {
+            "type": "struct_literal",
             "named": true
           },
           {
@@ -2701,6 +2871,10 @@
           "named": true
         },
         {
+          "type": "struct_literal",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         }
@@ -2772,6 +2946,10 @@
             "named": true
           },
           {
+            "type": "struct_literal",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           }
@@ -2838,6 +3016,10 @@
             "named": true
           },
           {
+            "type": "struct_literal",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           }
@@ -2901,6 +3083,10 @@
           },
           {
             "type": "some_expression",
+            "named": true
+          },
+          {
+            "type": "struct_literal",
             "named": true
           },
           {
@@ -3020,6 +3206,10 @@
             "named": true
           },
           {
+            "type": "struct_literal",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           }
@@ -3073,6 +3263,64 @@
       "types": [
         {
           "type": "escape_sequence",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "struct_literal",
+    "named": true,
+    "fields": {
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "qualified_path",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "array_type",
+          "named": true
+        },
+        {
+          "type": "field_initializer",
+          "named": true
+        },
+        {
+          "type": "function_type",
+          "named": true
+        },
+        {
+          "type": "generic_type",
+          "named": true
+        },
+        {
+          "type": "optional_type",
+          "named": true
+        },
+        {
+          "type": "pointer_type",
+          "named": true
+        },
+        {
+          "type": "primitive_type",
+          "named": true
+        },
+        {
+          "type": "qualified_path",
+          "named": true
+        },
+        {
+          "type": "slice_type",
           "named": true
         }
       ]
@@ -3140,6 +3388,10 @@
           },
           {
             "type": "some_expression",
+            "named": true
+          },
+          {
+            "type": "struct_literal",
             "named": true
           },
           {
@@ -3226,6 +3478,10 @@
           },
           {
             "type": "some_expression",
+            "named": true
+          },
+          {
+            "type": "struct_literal",
             "named": true
           },
           {
@@ -3485,6 +3741,10 @@
           "named": true
         },
         {
+          "type": "struct_literal",
+          "named": true
+        },
+        {
           "type": "unary_expression",
           "named": true
         }
@@ -3576,6 +3836,10 @@
             "named": true
           },
           {
+            "type": "struct_literal",
+            "named": true
+          },
+          {
             "type": "unary_expression",
             "named": true
           }
@@ -3655,6 +3919,10 @@
           },
           {
             "type": "some_expression",
+            "named": true
+          },
+          {
+            "type": "struct_literal",
             "named": true
           },
           {

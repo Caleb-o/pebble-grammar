@@ -457,31 +457,34 @@ module.exports = grammar({
     nil_literal: ($) => "nil",
 
     struct_literal: ($) =>
-      choice(
-        // Anonymous struct literal: .{ ... }
-        seq(
-          ".",
-          "{",
-          optional(sep1($.field_initializer, ",")),
-          optional(","),
-          "}",
-        ),
-        // Typed struct literal: Type{ ... } or Type.[T]{ ... }
-        seq(
-          choice(
-            $.qualified_path,
-            seq(
-              field("type", choice($.qualified_path)),
-              ".",
-              "[",
-              sep1($._type, ","),
-              "]",
-            ),
+      prec(
+        1,
+        choice(
+          // Anonymous struct literal: .{ ... }
+          seq(
+            ".",
+            "{",
+            optional(sep1($.field_initializer, ",")),
+            optional(","),
+            "}",
           ),
-          "{",
-          optional(sep1($.field_initializer, ",")),
-          optional(","),
-          "}",
+          // Typed struct literal: Type{ ... } or Type.[T]{ ... }
+          seq(
+            choice(
+              $.qualified_path,
+              seq(
+                field("type", $.qualified_path),
+                ".",
+                "[",
+                sep1($._type, ","),
+                "]",
+              ),
+            ),
+            "{",
+            optional(sep1($.field_initializer, ",")),
+            optional(","),
+            "}",
+          ),
         ),
       ),
 
