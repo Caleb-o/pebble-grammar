@@ -292,11 +292,14 @@ module.exports = grammar({
       seq("loop", field("range", $.range_expression), field("body", $.block)),
 
     print_statement: ($) =>
-      seq(
-        "print",
-        $._expression,
-        optional(repeat(seq(",", $._expression))),
-        ";",
+      prec(
+        15, // or any number > 0, just higher than expression_statement
+        seq(
+          "print",
+          $._expression,
+          optional(repeat(seq(",", $._expression))),
+          ";",
+        ),
       ),
 
     // Range expression
