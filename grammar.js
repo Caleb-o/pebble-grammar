@@ -1,7 +1,7 @@
 module.exports = grammar({
   name: "pebble",
 
-  extras: ($) => [/\s/, $.comment],
+  extras: ($) => [/\s+/, $.comment],
 
   rules: {
     source_file: ($) => repeat($._definition),
@@ -267,7 +267,7 @@ module.exports = grammar({
         field("value", $._expression),
         optional(repeat(seq(",", $._expression))),
         ":",
-        field("body", choice($.block, $.case_body)),
+        field("body", choice(prec(1, $.block), $.case_body)),
       ),
 
     else_clause: ($) =>
