@@ -468,17 +468,8 @@ module.exports = grammar({
         "}",
       ),
 
-    struct_literal: ($) =>
-      seq(
-        optional(
-          field("type", choice($.qualified_path, $.generic_instantiation)),
-        ),
-        ".",
-        "{",
-        optional(sep1($.field_initializer, ",")),
-        optional(","),
-        "}",
-      ),
+    field_initializer: ($) =>
+      seq(field("name", $.identifier), "=", field("value", $._expression)),
 
     array_literal: ($) =>
       seq(
