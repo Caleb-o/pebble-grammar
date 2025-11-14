@@ -17,7 +17,7 @@ module.exports = grammar({
       ),
 
     // Comments
-    comment: ($) => token(seq("//", /.*/)),
+    comment: ($) => token(prec(-1, seq("//", /[^\n]*/))),
 
     type: ($) => $._type,
 
