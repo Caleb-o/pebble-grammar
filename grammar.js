@@ -253,6 +253,7 @@ module.exports = grammar({
         seq(
           "switch",
           field("condition", $._expression),
+          token.immediate("{"),
           "{",
           repeat($.case_clause),
           optional($.else_clause),
